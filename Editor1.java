@@ -11,27 +11,40 @@ import java.awt.Color;
  */
 public class Editor1 {
 
-	public static void main (String[] args){
-		String fileName = args[0];
-		String action = args[1];
-		// Reads the input image and creates an empty output image
-		Color[][] imageIn = Runigram.read(fileName);	
-		Color[][] imageOut = null;	
-		// Applies the specified image processing function										
-		if (action.equals("fh")) {
-			imageOut = Runigram.flippedHorizontally(imageIn);
-		} else if (action.equals("fv")) {
-			imageOut = Runigram.flippedVertically(imageIn);
-		} else if (action.equals("gs")) {
-			imageOut = Runigram.grayScaled(imageIn);
-		}
-		// Creates a canvas in which both images will be displayed, one after the other.
-		// Next, displays the input image, and pauses for a few seconds. 
-		// Finally, displays the output image.
-		// (Notice that both images have the same dimensions).
-		Runigram.setCanvas(imageIn);
-		Runigram.display(imageIn);
-		StdDraw.pause(3000); 
-		Runigram.display(imageOut);							
-	}
+    public static void main (String[] args) {
+        // Check if enough arguments are provided
+        if (args.length < 2) {
+            System.out.println("Usage: java Editor1 <filename> <action>");
+            System.out.println("Action can be: fh (flip horiz), fv (flip vert), gs (grey scale)");
+            return;
+        }
+
+        String fileName = args[0];
+        String action = args[1];
+
+        // Reads the input image and creates an empty output image
+        Color[][] imageIn = Runigram.read(fileName);    
+        Color[][] imageOut = null;  
+
+        // Applies the specified image processing function                                      
+        if (action.equals("fh")) {
+            imageOut = Runigram.flippedHorizontally(imageIn);
+        } else if (action.equals("fv")) {
+            imageOut = Runigram.flippedVertically(imageIn);
+        } else if (action.equals("gs")) {
+            imageOut = Runigram.grayScaled(imageIn);
+        } else {
+            System.out.println("Error: Unknown action " + action);
+            return;
+        }
+
+        // Creates a canvas in which both images will be displayed, one after the other.
+        // Next, displays the input image, and pauses for a few seconds. 
+        // Finally, displays the output image.
+        // (Notice that both images have the same dimensions).
+        Runigram.setCanvas(imageIn);
+        Runigram.display(imageIn);
+        StdDraw.pause(3000); 
+        Runigram.display(imageOut);                         
+    }
 }
